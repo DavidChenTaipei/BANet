@@ -1,6 +1,0 @@
-INFO logger.py(47): iter: 1/360, lr: 0.006141, eta: -1 day, 23:59:56, time: 155.86, loss: 0.1885
-INFO evaluate.py(227): single mIOU is: 0.5903509259223938
-
-INFO banet_train.py(243): |   single_scale |
-|----------------|
-|       0.590351 |
