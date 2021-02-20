@@ -89,30 +89,11 @@ def get_data_loader(datapth, annpath, ims_per_gpu, scales, cropsize, mode='train
 
     dss = CityScapes(datapth, annpath, trans_func=trans_func, mode=mode)
     count=0
-    '''for it,(im,lb) in enumerate(ds):
-         count+=1
-    print('items in ds',count)'''
     dl = DataLoader(dss,batch_size=batchsize,shuffle=shuffle,drop_last=drop_last,num_workers=4, pin_memory=True)
-    '''count=0
-    for it,(im,lb) in enumerate(dl):
-         count+=1
-    print('items in dl',count)'''
+    
     return dl
 
 
 
 if __name__ == "__main__":
-    '''from tqdm import tqdm
-    from torch.utils.data import DataLoader
-    ds = CityScapes('./data/', mode='val')
-    print('hhhere')
-    dl = DataLoader(ds,
-                    batch_size = 4,
-                    shuffle = True,
-                    num_workers = 4,
-                    drop_last = True)
-    for imgs, label in dl:
-        print('len of imgs',len(imgs))
-        for el in imgs:
-            print('el size',el.size())
-        break'''
+    print('main')
