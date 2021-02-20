@@ -48,14 +48,12 @@ torch.backends.cudnn.deterministic = True
 
 def parse_args():
     parse = argparse.ArgumentParser()
-    #parse.add_argument('--model', dest='model', type=str, default='bisenetv2',)
     parse.add_argument('--finetune-from', type=str, default=None,)
     parse.add_argument('--name',dest = 'store_name',type=str)
     parse.add_argument('--epoch-to-train', dest = 'epoch_to_train',type=int)
     return parse.parse_args()
 
 args = parse_args()
-#cfg = cfg_factory[args.model]
 
 
 
@@ -63,7 +61,6 @@ def set_model():
     net = model(channel=1024)
     if not args.finetune_from is None:
         net.load_state_dict(torch.load(args.finetune_from, map_location='cpu'))
-    #if cfg.use_sync_bn: net = set_syncbn(net)
     net.cuda()
     net.train()
     criteria = nn.CrossEntropyLoss(ignore_index=255, reduction='none')
@@ -101,9 +98,7 @@ def set_optimizer(model):
 def set_meters(epoch):
     time_meter = TimeMeter(epoch)
     loss_meter = AvgMeter('loss')
-    #loss_pre_meter = AvgMeter('main_loss')
-    #loss_aux_meters = AvgMeter('aux_loss')
-    return time_meter, loss_meter#, loss_pre_meter, loss_aux_meters
+    return time_meter, loss_meter
 
 class ReduceLROnPlateauPatch(ReduceLROnPlateau):
     def get_lr(self):
@@ -138,16 +133,9 @@ def train(epoch,optim,net,criteria,lr_schdr):
         optim.step()
         
         time_meter.update()
-        #print('loss item',loss)
         loss_meter.update(loss.item())
-        #loss_pre_meter.update(aux_loss.mean().item())
-        #_ = [mter.update(lss.item()) for mter, lss in
-                #zip(loss_aux_meters,aux_loss.mean())]
         lr_schdr.step()
-        #lr_schdr.step(loss.item())
-        #lr = lr_schdr.get_lr()  #last_lr()
-        #print('lr',lr)
-        return lr_schdr,time_meter,loss_meter  #,loss_pre_meter,loss_aux_meters
+        return lr_schdr,time_meter,loss_meter
 with open('lr_record.txt','r+') as m:
     lr  = m.read()
     lr = lr.replace('\n',' ')
@@ -177,21 +165,18 @@ def main():
     lr_schdr = WarmupPolyLrScheduler(optim, power=0.9,
         max_iter=cfg.epoch*371, warmup_iter=cfg.warmup_iters*371,
         warmup_ratio=0.1, warmup='exp', last_epoch=-1,)
-    #lr_schdr = ExponentialLR(optim,gamma=0.9999)
-    #lr_schdr = ReduceLROnPlateauPatch(optim,mode='min', factor=0.9999, patience=2)
 
-    for epoch in range(cfg.start_epoch,args.epoch_to_train): #(cfg.start_epoch, cfg.epoch):
+    for epoch in range(cfg.start_epoch,args.epoch_to_train):
         lr_schdr,time_meter,loss_meter = train(epoch,optim,net,criteria,lr_schdr)
         if True:
         #if ((epoch+1)!=cfg.epoch):
-            print('1')
             lr = lr_schdr.get_lr()
             print(lr)
             lr = sum(lr) / len(lr)
             loss_avg = print_log_msg(
                 epoch, cfg.epoch, lr, time_meter, loss_meter)
-                #loss_pre_meter, loss_aux_meters)
             writer.add_scalar('loss',loss_avg,epoch + 1)
+            
         if ((epoch+1)==cfg.epoch) or ((epoch+1)==args.epoch_to_train):
         #if ((epoch+1)%1==0) and ((epoch+1)>cfg.warmup_iters):    
             torch.cuda.empty_cache()
@@ -214,7 +199,7 @@ def main():
                 x = best_miou.split(' ')
                 while ('' in x):
                     x.remove('')
-                best_miou = eval(x[-1]) #(best_miou)
+                best_miou = eval(x[-1])
                 is_best = miou> best_miou
                 if is_best:
                     best_miou = miou
@@ -227,12 +212,8 @@ def main():
                     save_checkpoint(state,is_best,filename) 
             print('Have Stored Checkpoint')
         #if((epoch+1)==cfg.epoch) or ((epoch+1)==args.epoch_to_train):
-            #print('3')
-            #logger.info('\nevaluating the final model')
-            #filename = osp.join(cfg.respth,'_final_model')
             state = net.state_dict() 
             torch.cuda.empty_cache()
-            #heads, mious = eval_model(net, 1, cfg.im_root, cfg.val_im_anns,it)
             #heads, mious = eval_model(net, 2, cfg.im_root, cfg.val_im_anns,it=epoch)
             logger.info(tabulate([mious, ], headers=heads, tablefmt='orgtbl'))
             save_checkpoint(state,False,filename)
