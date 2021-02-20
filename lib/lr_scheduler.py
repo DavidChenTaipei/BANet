@@ -17,7 +17,6 @@ class WarmupLrScheduler(torch.optim.lr_scheduler._LRScheduler):
             last_epoch=-1,
     ):
         self.warmup_iter = warmup_iter
-        #print('warmup_iter',warmup_iter)
         self.warmup_ratio = warmup_ratio
         self.warmup = warmup
         super(WarmupLrScheduler, self).__init__(optimizer, last_epoch)
@@ -28,13 +27,12 @@ class WarmupLrScheduler(torch.optim.lr_scheduler._LRScheduler):
         return lrs
 
     def get_lr_ratio(self):
-        #print('self.last_epoch',self.last_epoch)
-        #print('self.warmup_iter',self.warmup_iter)
-        #print('reeee', self.last_epoch < self.warmup_iter)
-        '''if self.last_epoch < self.warmup_iter:
+        if self.last_epoch < self.warmup_iter:
             ratio = self.get_warmup_ratio()
-        else:'''
-        ratio = self.get_main_ratio()
+        else:
+            ratio = self.get_main_ratio()
+        ## if you run the model after warming up in the for loop in train.sh, use the policy below
+        #ratio = self.get_main_ratio()
         return ratio
 
     def get_main_ratio(self):
