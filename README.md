@@ -18,6 +18,9 @@ NOTE THAT, the learning rate here will ovewrite the learning rate in config file
 ### folder : Configs 
 The file config.py is the file where the parameters are set.
 
+### folder : datasets
+Please put the dataset in the subfolder cityscapes of this folder, and check the relative path to the data in those two text file
+
 ### folder : lib
 In the lib folder, the **base_dataset.py** and **cityscapes_cv2.py** is where the dataset to be prepared. After these, the file **logger.py** is to set the information during training and **lr_scheduler.py** and **meters.py** are for learning rate policy and to set the meters for traininf repectively.Moreover, there is a subfolder named **model** and the struture of the model is written here. 
 
