@@ -1,4 +1,4 @@
-# BANet
+# Bilateral attention decoder: A lightweight decoder for real-time semantic segmentation
 This is my implement code of the [paper](https://doi.org/10.1016/j.neunet.2021.01.021): **Bilateral attention decoder: A lightweight decoder for real-time semantic segmentation** and the sturcture of the code is based on the implementation of [BiSeNet](https://github.com/CoinCheung/BiSeNet) by CoinCheung.
 
 The structure and all the configs are set as what author mentions in the paper.
