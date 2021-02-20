@@ -13,6 +13,7 @@ The best miou during training will be record here and the weight of it will be s
 
 ### file: lr_record.txt
 The learning rate need to be set at here, and will be changed due to the learning rate policy.
+NOTE THAT, the learning rate here will ovewrite the learning rate in config file.
 
 ### folder : Configs 
 The file config.py is the file where the parameters are set.
