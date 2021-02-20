@@ -17,8 +17,6 @@ from lib.sampler import RepeatedDistSampler
 
 
 class BaseDataset(Dataset):
-    '''
-    '''
     def __init__(self, dataroot, annpath, trans_func=None, mode='train'):
         super(BaseDataset, self).__init__()
         assert mode in ('train', 'val', 'test')
@@ -42,9 +40,6 @@ class BaseDataset(Dataset):
     def __getitem__(self, idx):
         impth, lbpth = self.img_paths[idx], self.lb_paths[idx]
         img, label = cv2.imread(impth)[:, :, ::-1], cv2.imread(lbpth, 0)
-     #   print(np.shape(img))
-     #   img = cv2.resize(img,(1024,2048),interpolation=cv2.INTER_CUBIC)
-     #   label = cv2.resize(label,(1024,2048),interpolation=cv2.INTER_CUBIC)
         if not self.lb_map is None:
             label = self.lb_map[label]
         im_lb = dict(im=img, lb=label)
@@ -55,7 +50,6 @@ class BaseDataset(Dataset):
         return img.detach(), label.unsqueeze(0).detach()
 
     def __len__(self):
-        #print('lllen',self.len)
         return self.len
 
 
@@ -87,7 +81,6 @@ class TransformationVal(object):
 if __name__ == "__main__":
     from tqdm import tqdm
     from torch.utils.data import DataLoader
-    #ds = CityScapes(dataroot='',annpath = '../datasets/cityscapes/train.txt', mode='train')
     ds = CityScapes('./data/', mode='val')
     dl= DataLoader(ds,
                     batch_size = 4,
