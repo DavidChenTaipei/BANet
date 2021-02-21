@@ -6,7 +6,7 @@ This is my implement code of the [paper](https://doi.org/10.1016/j.neunet.2021.0
 The structure and all the configs are set as what author mentions in the paper.
 
 ## TODO : 
-There is a bug while training with the warm up learning rate policy, the loss of the model will turn into **nan** , I will fix the problem asap. 
+There is a bug while training with the warm up learning rate policy, the loss of the model will turn into **nan** , I will fix the problem asap. </br>
 For now, you can train with the model through the script **train.sh** , however, after the warming up epoch, please train the model with the for loop in **train.sh** and change the [code](https://github.com/DavidChenTaipei/BANet/blob/1206c8cde021cfcc38ac14b0d30b62940a545fdf/lib/lr_scheduler.py#L34) in **lr_schedulor.py** to train without warm up policy. The loss will not turn into **nan** without warm up.
 
 ## Introduction
