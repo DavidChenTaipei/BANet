@@ -54,3 +54,11 @@ python tools/banet_train.py --epoch-to-train 150 --name THE_NAME_TO_STORE_WEIGHT
 ```
 python tools/evaluate.py --weight-path ./res/THE_NAME_OF_WEIGHT.pth
 ```
+
+## Citation
+Please cite my repository if you use it as below
+```
+David Chen. (2021, February 21).
+DavidChenTaipei/BANet: The first release of BANet (Version v1.0).
+Zenodo. http://doi.org/10.5281/zenodo.4553805
+```
