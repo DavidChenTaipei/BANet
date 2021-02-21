@@ -1,4 +1,9 @@
 # BANet
+[![DOI](https://zenodo.org/badge/338094750.svg)](https://zenodo.org/badge/latestdoi/338094750) 
+[![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
+[![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)</br>
+</br>
+
 ### Bilateral attention decoder: A lightweight decoder for real-time semantic segmentation
 
 This is my implement code of the [paper](https://doi.org/10.1016/j.neunet.2021.01.021): **Bilateral attention decoder: A lightweight decoder for real-time semantic segmentation** and the sturcture of this repository is based on the implementation of [BiSeNet](https://github.com/CoinCheung/BiSeNet) by CoinCheung.
