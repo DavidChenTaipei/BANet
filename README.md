@@ -41,11 +41,11 @@ The model will store the logging file and the weights here if you did not change
 Most of the file do the job as their name, except the file **utils.py** for storing checkpoints, **banet_train.py** reponsible for the training, **demo.py** responsible for the quick display of the result, and the evaluate.py reponsible for the evaluation. 
 
 ## Training
-To train the model, you may use the instruction 
+To train the model, you may use the command 
 ```
 sh train.sh 
 ``` 
-or the instruction 
+or the command 
 ```
 python tools/banet_train.py --epoch-to-train 150 --name THE_NAME_TO_STORE_WEIGHT --finetune-from ./res/THE_NAME_OF_WEIGHT.pth
 ```
