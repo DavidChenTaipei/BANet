@@ -56,7 +56,7 @@ python tools/evaluate.py --weight-path ./res/THE_NAME_OF_WEIGHT.pth
 ```
 
 ## Citation
-Please cite my repository if you use it as below
+Please cite my repository as below if you use it
 ```
 David Chen. (2021, February 21).
 DavidChenTaipei/BANet: The first release of BANet (Version v1.0).
