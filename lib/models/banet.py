@@ -128,7 +128,7 @@ class CA(nn.Module):
         feat = self.gap(x)
         feat = self.conv(feat)
         feat = self.bn(feat)
-        feat = self.sigmoid(x)
+        feat = self.sigmoid(feat)
         upsampled_feat = F.interpolate(feat,size=((x.shape)[-2],x.shape[-1]), mode='nearest')
         out = torch.mul(x,upsampled_feat)
         return out
@@ -144,8 +144,8 @@ class SA(nn.Module):
         self.sigmoid = nn.Sigmoid()
     def forward(self, x):
         feat = self.cbr(x)
-        avg_out = torch.mean(x, dim=1, keepdim=True) ##pixel-wise average pooling
-        max_out, _ = torch.max(x, dim=1, keepdim=True) ##pixel-wise max pooling
+        avg_out = torch.mean(feat, dim=1, keepdim=True) ##pixel-wise average pooling
+        max_out, _ = torch.max(feat, dim=1, keepdim=True) ##pixel-wise max pooling
         feat = torch.cat((avg_out, max_out), dim=1)
         feat = self.conv(feat)
         feat = self.bn(feat)
